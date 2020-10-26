@@ -2,7 +2,7 @@ import React,{Component} from 'react';
 import CreatePlacesService from './service';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
-import 'src/views/teamd/coordinator/administer-GI/node_modules/bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 import {
     Box,

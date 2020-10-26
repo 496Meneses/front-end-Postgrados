@@ -3,7 +3,7 @@ import CreatePlacesService from './service';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 import { Link as  useNavigate } from 'react-router-dom';
-import 'src/views/teamd/coordinator/administer-GI/node_modules/bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import {
     Box,
     Button,
@@ -53,10 +53,6 @@ const CreateCountryView = () =>{
 
                         })
                       }
-                      onSubmit={() => {
-                        useNavigate('/app/dashboard', { replace: true });
-                      }}
-                    
             >
             {({
               errors,

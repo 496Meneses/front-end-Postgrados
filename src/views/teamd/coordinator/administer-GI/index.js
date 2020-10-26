@@ -65,9 +65,6 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-
-
-
 const AdministerView = () =>{
 
     const classes = useStyles();

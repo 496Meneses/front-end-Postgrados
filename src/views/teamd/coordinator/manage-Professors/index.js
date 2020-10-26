@@ -7,7 +7,7 @@ import {
   } from '@material-ui/core';
 import CreateProfessorView from './createProfessor'
 import Page from 'src/components/Page';
-const ManageProfessorView = () => {
+const AdministerProfessorsView = () => {
   return (
     <Page
       title="Professors"
@@ -23,4 +23,4 @@ const ManageProfessorView = () => {
   );
 };
 
-export default ManageProfessorView;
+export default AdministerProfessorsView;

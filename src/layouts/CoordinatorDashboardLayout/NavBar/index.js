@@ -34,6 +34,16 @@ const items = [
     href: '/coordinator/administer-Gi',
     icon: BarChartIcon,
     title: 'Administar Grupo Investigacion'
+  },
+  {
+    href: '/coordinator/administer-Places',
+    icon: BarChartIcon,
+    title: 'Administar Lugares'
+  },
+  {
+    href: '/coordinator/administer-Professors',
+    icon: BarChartIcon,
+    title: 'Administar Profesores'
   }
 
   /*   {
