@@ -39,6 +39,11 @@ const items = [
     href: '/coordinator/administer-Places',
     icon: BarChartIcon,
     title: 'Administar Lugares'
+  },
+  {
+    href: '/coordinator/administer-Professors',
+    icon: BarChartIcon,
+    title: 'Administar Profesores'
   }
 
   /*   {

@@ -1,8 +1,8 @@
-import React,{Component} from 'react';
+import React,{useState} from 'react';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import {CreateProfessorApi} from './service'
-import 'src/views/teamd/coordinator/administer-places/node_modules/src/views/teamd/coordinator/administer-GI/node_modules/bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import {
     Box,
     Button,
