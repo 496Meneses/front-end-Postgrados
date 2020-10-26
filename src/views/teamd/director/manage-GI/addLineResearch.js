@@ -1,5 +1,5 @@
 import React,{Component, useState} from 'react';
-import CreateGI from './service';
+import {AddLineRearchService} from './service';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 import {
@@ -10,17 +10,16 @@ import {
 
     
   } from '@material-ui/core';
-const crearGI = new CreateGI();
 const AddLineResearchView = () => {
 
     const [title, setTitle] = useState("")
     const [description, setDescription] = useState("")
     const [knowLedge, setKnowLedge] = useState("")
     const handleCreate = () => {
-        crearGI.AddLineRearchService({
+        AddLineRearchService({
             "nombre": title,
             "descripcion": description,
-            "area_con" : KnowLedge,
+            "area_con" : knowLedge,
             
         }).then((result)=>{
             alert ("Linea de investigacion agregada!");
@@ -29,12 +28,19 @@ const AddLineResearchView = () => {
         });
            
     }
+    const handleChangeTitle = (e)=>{
+        setTitle(e.target.value)
+    }
+    const handleChangeDescription = (e)=>{
+        setDescription(e.target.value)
+    }
+    const handleChangeKnowLedge = (e)=>{
+        setKnowLedge(e.target.value)
+    }
     const handleSubmit = (event) =>{
         handleCreate();
         event.preventDefault();
     }
-
-    render(){
         return(
             <Container maxWidth="sm">
             <Formik
@@ -59,7 +65,6 @@ const AddLineResearchView = () => {
               errors,
               handleBlur,
               handleChange,
-              isSubmitting,
               touched,
               values
             }) => (
@@ -69,7 +74,7 @@ const AddLineResearchView = () => {
                 height="100%"
                 justifyContent="center"
             >
-                <form  onSubmit={this.handleSubmit}>
+                <form  onSubmit={handleSubmit}>
                     <Box mb={3}>
                     <TextField
                         error={Boolean(touched.title && errors.title)}
@@ -78,9 +83,8 @@ const AddLineResearchView = () => {
                         label="Title"
                         margin="normal"
                         name="title"
-                        inputRef={this.title}
                         onBlur={handleBlur}
-                        onChange={handleChange}
+                        onChange={handleChangeTitle}
                         type="text"
                         value={values.title}
                         variant="outlined"
@@ -92,9 +96,8 @@ const AddLineResearchView = () => {
                         label="Descripcion"
                         margin="normal"
                         name="description"
-                        inputRef={this.description}
                         onBlur={handleBlur}
-                        onChange={handleChange}
+                        onChange={handleChangeDescription}
                         type="text"
                         value={values.description}
                         variant="outlined"
@@ -107,9 +110,8 @@ const AddLineResearchView = () => {
                         label="Area conocimiento" //TODO
                         margin="normal"
                         name="KnowLedge"
-                        inputRef={this.KnowLedge}
                         onBlur={handleBlur}
-                        onChange={handleChange}
+                        onChange={handleChangeKnowLedge}
                         type="text"
                         value={values.KnowLedge}
                         variant="outlined"
@@ -134,5 +136,8 @@ const AddLineResearchView = () => {
             </Container>
         
     )
-    }
+    
 }
+
+export default  AddLineResearchView;
+    

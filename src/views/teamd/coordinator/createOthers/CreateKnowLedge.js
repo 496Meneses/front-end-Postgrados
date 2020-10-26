@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import {AddKnowLedgeService} from './service';
+//import CreateGI from './service';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 import {
@@ -11,7 +11,8 @@ import {
     
   } from '@material-ui/core';
 
-const AddKnowLedgeView = () =>{
+//const createGI = new CreateGI();
+const CreateKnowLedgeView = () =>{
 
 
     const [title, setTitle] = useState("")
@@ -23,18 +24,18 @@ const AddKnowLedgeView = () =>{
         setdescription(e.target.value);
     }
     const handleCreate = () =>{
-        AddKnowLedgeService({
-            "nombre": title,
-            "descripcion": description
-            //"fechainicio": this.startDate.current.value,
-            //"fechafin": this.endDate.current.value,
-            //"estado": this.state.current.value,
+        // createGI.AddKnowLedgeService({
+        //     "nombre": title,
+        //     "descripcion": description
+        //     //"fechainicio": this.startDate.current.value,
+        //     //"fechafin": this.endDate.current.value,
+        //     //"estado": this.state.current.value,
             
-        }).then((result)=>{
-            alert ("Area de conocimiento agregada creado!");
-        }).catch(()=>{
-            alert("Error");
-        });
+        // }).then((result)=>{
+        //     alert ("Area de conocimiento agregada creado!");
+        // }).catch(()=>{
+        //     alert("Error");
+        // });
            
     }
     const handleSubmit = (event) =>{

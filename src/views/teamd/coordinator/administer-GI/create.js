@@ -12,9 +12,8 @@ import {
   TextField,
 
 } from '@material-ui/core';
-import CreateGIService from './service';
+import {CreateGIApi} from './service';
 
-const createGI = new CreateGIService();
 const CreateView = () => {
 
   const [name, setname] = useState("")
@@ -37,7 +36,7 @@ const CreateView = () => {
   }
   // envio de datos al backend
   const handleCreate = () => {
-    createGI.CreateGI({
+    CreateGIApi({
 
       "nombre": name,
       "categoria": category,

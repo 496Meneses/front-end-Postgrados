@@ -1,5 +1,5 @@
-import React,{useState} from 'react';
-import {AddKnowLedgeService} from './service';
+import React,{Component, useState} from 'react';
+//import CreateGI from './service';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 import {
@@ -10,32 +10,33 @@ import {
 
     
   } from '@material-ui/core';
-
-const AddKnowLedgeView = () =>{
-
+//const crearGI = new CreateGI();
+const CreateLineResearchView = () => {
 
     const [title, setTitle] = useState("")
-    const [description, setdescription] = useState("")
-    const handleChangeTitle  = (e)=>{
+    const [description, setDescription] = useState("")
+    const [knowLedge, setKnowLedge] = useState("")
+    const handleCreate = () => {
+        // crearGI.AddLineRearchService({
+        //     "nombre": title,
+        //     "descripcion": description,
+        //     "area_con" : knowLedge,
+            
+        // }).then((result)=>{
+        //     alert ("Linea de investigacion agregada!");
+        // }).catch(()=>{
+        //     alert("Error");
+        // });
+           
+    }
+    const handleChangeTitle = (e)=>{
         setTitle(e.target.value)
     }
-    const handleChangeDescription = (e) =>{
-        setdescription(e.target.value);
+    const handleChangeDescription = (e)=>{
+        setDescription(e.target.value)
     }
-    const handleCreate = () =>{
-        AddKnowLedgeService({
-            "nombre": title,
-            "descripcion": description
-            //"fechainicio": this.startDate.current.value,
-            //"fechafin": this.endDate.current.value,
-            //"estado": this.state.current.value,
-            
-        }).then((result)=>{
-            alert ("Area de conocimiento agregada creado!");
-        }).catch(()=>{
-            alert("Error");
-        });
-           
+    const handleChangeKnowLedge = (e)=>{
+        setKnowLedge(e.target.value)
     }
     const handleSubmit = (event) =>{
         handleCreate();
@@ -47,17 +48,13 @@ const AddKnowLedgeView = () =>{
                 initialValues={{
                     title:'',
                     description:'',
-                    startDate:'',
-                    endDate:'',
-                    state:''
+
                     }}
                     validationSchema={
                         Yup.object().shape({
                           title: Yup.string().max(255).required('Title is required'),
                           description: Yup.string().max(255).required('Description is required'),
-                          startDate: Yup.string().max(255).required('startDate is required'),
-                          endDate: Yup.string().max(255).required('endDate is required'),
-                          state: Yup.string().max(255).required('State is required')
+                          KnowLedge: Yup.string().max(255).required('KnowLedge is required'),
                         })
                       }
                       onSubmit={() => {
@@ -106,38 +103,20 @@ const AddKnowLedgeView = () =>{
                         value={values.description}
                         variant="outlined"
                         />
-                        {/* <TextField
-                        label="Fecha inicio"
-                        type="date"
-                        inputRef = {this.startDate}
-                        defaultValue="2020-01-01"
-                        InputLabelProps={{
-                        shrink: true,
-                        }}
-                        />
+                        
                         <TextField
-                        label="Fecha fin"
-                        type="date"
-                        inputRef = {this.endDate}
-                        defaultValue="2020-01-01"
-                        InputLabelProps={{
-                        shrink: true,
-                        }}
-                        /> */}
-                        {/* <TextField
-                        error={Boolean(touched.state && errors.state)}
+                        error={Boolean(touched.KnowLedge && errors.KnowLedge)}
                         fullWidth
-                        helperText={touched.state && errors.state}
-                        label="Estado"
+                        helperText={touched.KnowLedge && errors.KnowLedge}
+                        label="Area conocimiento" //TODO
                         margin="normal"
-                        name="state"
-                        inputRef={this.state}
+                        name="KnowLedge"
                         onBlur={handleBlur}
-                        onChange={handleChange}
+                        onChange={handleChangeKnowLedge}
                         type="text"
-                        value={values.state}
+                        value={values.KnowLedge}
                         variant="outlined"
-                        /> */}
+                        />
                         <Box my={2}>
                             <Button
                                 color="primary"
@@ -160,4 +139,3 @@ const AddKnowLedgeView = () =>{
     )
     
 }
-export default AddKnowLedgeView;
