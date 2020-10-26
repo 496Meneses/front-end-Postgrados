@@ -7,26 +7,109 @@ import {
   TableBody,
   TableCell,
   TableHead,
-  TablePagination,
   TableRow,
-  Typography,
-  makeStyles
+  Typography
 } from '@material-ui/core';
 
 
 
 
 
-export const  ListProfessors = ({professors}) => {
+export const  ListProfessors = ({professors,filterBy}) => {
     
 
     const handleAdd = (isDirector) =>{
         if (!isDirector){
             return <button>Asignar</button>
+        }else{
+          return <button disabled>Asignar</button>
         }
 
     }
+    const list = () =>{
+      if (filterBy!=" "){
+        return professors.map ( 
+          (i) => {
 
+            if (i.name.toLowerCase().search(filterBy.toLowerCase()) > -1){
+             
+            return(  
+              <TableRow
+              hover
+              key={i.id}
+            >
+                    <TableCell>
+                    <Box
+                      alignItems="center"
+                      display="flex"
+                    >
+                      <Typography
+                        color="textPrimary"
+                        variant="body1"
+                        
+                      >
+                        {i.name}
+                      </Typography>
+                      </Box>
+                    </TableCell>
+                    <TableCell>
+                      {i.email}
+                    </TableCell>
+                    <TableCell>
+                      {i.edad}
+                    </TableCell>
+                    <TableCell>
+                        {
+                          handleAdd(i.isDirector)
+                        }
+                  </TableCell>
+            </TableRow>
+            )
+          }
+        }
+        )
+      }else{
+        return professors.map ( 
+          (i) => {
+            return(  
+              <TableRow
+              hover
+              key={i.id}
+            >
+                    <TableCell>
+                    <Box
+                      alignItems="center"
+                      display="flex"
+                    >
+                      <Typography
+                        color="textPrimary"
+                        variant="body1"
+                        
+                      >
+                        {i.name}
+                      </Typography>
+                      </Box>
+                    </TableCell>
+                    <TableCell>
+                      {i.email}
+                    </TableCell>
+                    <TableCell>
+                      {i.edad}
+                    </TableCell>
+                    <TableCell>
+                        {
+                          handleAdd(i.isDirector)
+                        }
+                  </TableCell>
+            </TableRow>
+            )
+          }
+        )
+      }
+
+    }
+    
+    
     return (
         <Card
         >
@@ -50,38 +133,7 @@ export const  ListProfessors = ({professors}) => {
                 </TableRow>
               </TableHead>
               <TableBody>
-              <TableRow
-              hover
-              key={professors.id}
-            >{
-                console.log(professors)
-              }
-              
-              <TableCell>
-                <Box
-                  alignItems="center"
-                  display="flex"
-                >
-                  <Typography
-                    color="textPrimary"
-                    variant="body1"
-                  >
-                    {professors.name}
-                  </Typography>
-                </Box>
-              </TableCell>
-              <TableCell>
-                {professors.email}
-              </TableCell>
-              <TableCell>
-                {professors.edad}
-              </TableCell>
-              <TableCell>
-                  {
-                    handleAdd(professors.isDirector)
-                  }
-            </TableCell>
-            </TableRow>
+                {list()}
               </TableBody>
             </Table>
           </Box>

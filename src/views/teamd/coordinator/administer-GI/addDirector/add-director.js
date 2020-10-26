@@ -1,6 +1,5 @@
-import { CameraRollSharp } from '@material-ui/icons';
-import { castArray } from 'lodash';
-import React, { useState,useEffect } from 'react';
+
+import React, { useState} from 'react';
 import ListProfessors from './listProfessors';
 import SearchProfessor from './searchProfessor';
 
@@ -9,8 +8,9 @@ const AddDirector = ()=>{
 
     
     // Constantes estado
-    const [professor, setprofessor] = useState(" ");
-    const [listProfessors, setListProfessors] = useState(
+    const [professor] = useState(" ");
+    const [search, setSearch] = useState(" ");
+    const [listProfessors] = useState(
         [
             {
                 id: 1233,
@@ -57,20 +57,20 @@ const AddDirector = ()=>{
     
     const onSearchProfessor = (searchName) =>{
 
-        listProfessors.map( (object)=>{
+        setSearch(searchName)
+        // listProfessors.map( (object)=>{
         
-            if (object.name.includes(searchName)){
-                setprofessor(object)
-            }
-        })
-
+        //     if (object.name.includes(searchName)){
+        //         setprofessor(object)
+        //     }
+        // })
     }
     const listingProfessors = () =>{
         if (professor === " " ){
 
-            return <ListProfessors professors={listProfessors}/>
+            return <ListProfessors professors={listProfessors} filterBy = {search}/>
         }else{
-            return <ListProfessors professors={professor}/>
+            return <ListProfessors professors={listProfessors} filterBy = {search.toLowerCase}/>
         }
     }
 
@@ -81,7 +81,6 @@ const AddDirector = ()=>{
 
     return (
     <>
-        {console.log(listProfessors)}
         <SearchProfessor onSearchProfessor = {(search) => onSearchProfessor(search)} />
         {listingProfessors()}
     </>)
