@@ -24,6 +24,7 @@ import CoordinatorDashboardLayout from 'src/layouts/CoordinatorDashboardLayout';
 import ListStudentsView from 'src/views/teamc/coordinator/ListStudentsView';
 import StudentView from 'src/views/teamc/coordinator/StudentInfoView';
 import AdministerView from 'src/views/teamd/coordinator/administer-GI/index'
+import AdministerPlacesView from 'src/views/teamd/coordinator/administer-places/index'
 /* End Coordinator imports*/
 /* Director imports */
 import DirectorDashboardLayout from 'src/layouts/DirectorDashboardLayout';
@@ -46,6 +47,7 @@ const routes = [
       { path: 'list-students', element: <ListStudentsView /> },
       { path: 'list-students/student/:id', element: <StudentView /> },
       { path: '/administer-Gi', element: <AdministerView />},
+      { path: '/administer-Places', element: <AdministerPlacesView />},
       { path: '*', element: <Navigate to="/404" /> }
       ]
   },
