@@ -15,16 +15,19 @@ import {
 
 const createCity = new CreatePlacesService();
 const list = new CreatePlacesService();
-export default class CreateCityView extends Component{
+const CreateCityView = () =>{
+    const [name, setname] = useState(" ")
+    const [department,setdepartment]= useState(" ")
 
-    constructor(props){
-        super(props);
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.name = React.createRef();
-        this.department = React.createRef();
-        this.country = React.createRef();
+    const handleOnchangeName = (e) =>{
+        setname(e.target.value);
     }
-    options(){
+
+    const handleOnchangeDepartment = (e) =>{ 
+         setdepartment(e.target.value);
+    }
+
+    const options = ()=>{
         list.listCountries({
             
         }).then(async (result)=>{
@@ -67,11 +70,11 @@ export default class CreateCityView extends Component{
 
 
         }
-    handleCreate(){
+    const handleCreate= () =>{
         let selectCountry = document.getElementById('opcionesCountries').value;
         createCity.CreateCity({
-            "nombre": this.name.current.value,
-            "departamento": this.department.current.value,
+            "nombre": name,
+            "departamento": department,
             "pais": selectCountry,
             
         }).then((result)=>{
@@ -84,13 +87,12 @@ export default class CreateCityView extends Component{
         });
            
     }
-    handleSubmit(event){
-        this.handleCreate();
+    const handleSubmit = (event) =>{
+        handleCreate();
         event.preventDefault();
     }
 
-    render(){
-        return(
+    return(
             <Container maxWidth="sm">
             <Formik
                 initialValues={{
@@ -121,14 +123,14 @@ export default class CreateCityView extends Component{
               values
             }) => (
             <>
-            {this.options()}
+            {options()}
             <Box
                 display="flex"
                 flexDirection="column"
                 height="100%"
                 justifyContent="center"
             >
-                <form  onSubmit={this.handleSubmit}>
+                <form  onSubmit={handleSubmit}>
                     <Box mb={3}>
                     <TextField
                         error={Boolean(touched.city && errors.city)}
@@ -137,9 +139,8 @@ export default class CreateCityView extends Component{
                         label="Nombre de la ciudad"
                         margin="normal"
                         name="city"
-                        inputRef={this.name}
                         onBlur={handleBlur}
-                        onChange={handleChange}
+                        onChange = {handleOnchangeName}
                         type="text"
                         value={values.name}
                         variant="outlined"
@@ -151,9 +152,8 @@ export default class CreateCityView extends Component{
                         label="Departamento a la que pertenece"
                         margin="normal"
                         name="department"
-                        inputRef={this.department}
                         onBlur={handleBlur}
-                        onChange={handleChange}
+                        onChange = {handleOnchangeDepartment}
                         type="text"
                         value={values.deparment}
                         variant="outlined"
@@ -205,5 +205,6 @@ export default class CreateCityView extends Component{
             </Container>
         
     )
-    }
+    
 }
+export default CreateCityView;

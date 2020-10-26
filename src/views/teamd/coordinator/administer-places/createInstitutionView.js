@@ -14,24 +14,34 @@ import {
   } from '@material-ui/core';
 
 const createInstitution = new CreatePlacesService();
-export default class CreateInstitutionView extends Component{
+const CreateInstitutionView =()=>{
+    const [name, setname] = useState(" ")
+    const [city,setcity]= useState(" ")
+    const [department,setdepartment]= useState(" ")
+    const [country,setcountry]= useState(" ")
 
-    constructor(props){
-        super(props);
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.name = React.createRef();
-        this.city = React.createRef();
-        this.department = React.createRef();
-        this.country = React.createRef();
+    const handleOnchangeName = (e) =>{
+        setname(e.target.value);       
     }
-    handleCreate(){
-        createInstitution.CreateInstitution({
-            "nombre_ins": this.name.current.value,
-            "ciudad": this.city.current.value,
-            "departamento": this.department.current.value,
-            "pais": this.country.current.value
 
-            
+    const handleOnchangeCity =(e) =>{
+        setcity(e.target.value);
+    }
+
+    const handleOnchangeDepartment =()=>{
+        setdepartment(e.target.value);
+    }
+
+    const handleOnchangeCountry = (e) =>{
+        setcountry(e.target.value);
+    }
+
+    const handleCreate = ()=>{
+        createInstitution.CreateInstitution({
+            "nombre_ins": name,
+            "ciudad": city,
+            "departamento": department,
+            "pais": country            
         }).then((result)=>{
 
             document.getElementById("contenedorCountry").innerHTML="<div class='alert alert-success' role='alert'>Institucion creada correctamente!</div>";
@@ -42,13 +52,13 @@ export default class CreateInstitutionView extends Component{
         });
            
     }
-    handleSubmit(event){
-        this.handleCreate();
+    const handleSubmit =(event)=>{ 
+        handleCreate();
         event.preventDefault();
     }
 
-    render(){
-        return(
+    
+    return(
             <Container maxWidth="sm">
             <Formik
                 initialValues={{
@@ -85,7 +95,7 @@ export default class CreateInstitutionView extends Component{
                 height="100%"
                 justifyContent="center"
             >
-                <form  onSubmit={this.handleSubmit}>
+                <form  onSubmit={handleSubmit}>
                     <Box mb={3}>
                     <TextField
                         error={Boolean(touched.name && errors.name)}
@@ -94,9 +104,8 @@ export default class CreateInstitutionView extends Component{
                         label="Nombre institucion"
                         margin="normal"
                         name="name"
-                        inputRef={this.name}
                         onBlur={handleBlur}
-                        onChange={handleChange}
+                        onChange={handleOnchangeName}
                         type="text"
                         value={values.name}
                         variant="outlined"
@@ -108,9 +117,8 @@ export default class CreateInstitutionView extends Component{
                         label="Ciudad a la que pertenece"
                         margin="normal"
                         name="city"
-                        inputRef={this.city}
                         onBlur={handleBlur}
-                        onChange={handleChange}
+                        onChange={handleOnchangeCity}
                         type="text"
                         value={values.city}
                         variant="outlined"
@@ -122,9 +130,8 @@ export default class CreateInstitutionView extends Component{
                         label="Departamento a la que pertenece"
                         margin="normal"
                         name="department"
-                        inputRef={this.department}
                         onBlur={handleBlur}
-                        onChange={handleChange}
+                        onChange={handleOnchangeDepartment}
                         type="text"
                         value={values.deparment}
                         variant="outlined"
@@ -136,9 +143,8 @@ export default class CreateInstitutionView extends Component{
                         label="Pais al que pertenece"
                         margin="normal"
                         name="country"
-                        inputRef={this.country}
                         onBlur={handleBlur}
-                        onChange={handleChange}
+                        onChange={handleOnchangeCountry}
                         type="text"
                         value={values.country}
                         variant="outlined"
@@ -168,5 +174,7 @@ export default class CreateInstitutionView extends Component{
             </Container>
         
     )
-    }
+    
 }
+
+export default CreateInstitutionView;

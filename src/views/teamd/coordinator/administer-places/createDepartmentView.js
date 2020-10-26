@@ -1,4 +1,4 @@
-import React,{Component} from 'react';
+import React,{Component, useState} from 'react';
 import CreatePlacesService from './service';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
@@ -8,23 +8,19 @@ import {
     Button,
     Container,
     TextField,
-    Typography,
-
-    
+    Typography,    
   } from '@material-ui/core';
 const createDepartment = new CreatePlacesService();
 const list = new CreatePlacesService();
-export default class CreateDepartmentView extends Component{
+const CreateDepartmentView = () =>{
 
-    constructor(props){
-        super(props);
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.name = React.createRef();
-        this.comboOptionsArray = this.props.opciones;
+    const [name, setname] = useState(" ")
+
+    const handleOnchangeName = (e) =>{
+        setname(e.target.value);
     }
 
-
-    options(){
+    const options = ()=>{
         list.listCountries({
             
         }).then(async (result)=>{
@@ -46,10 +42,10 @@ export default class CreateDepartmentView extends Component{
         });
 
         }
-    handleCreate(){
+    const handleCreate= () =>{
         let select = document.getElementById('opcionesD').value;
         createDepartment.CreateDeparment({
-            "nombre": this.name.current.value,
+            "nombre": name,
             "pais": select,
             
         }).then((result)=>{
@@ -62,13 +58,13 @@ export default class CreateDepartmentView extends Component{
         });
            
     }
-    handleSubmit(event){
-        this.handleCreate();
+    const handleSubmit = (event) =>{
+        handleCreate();
         event.preventDefault();
     }
 
-    render(){
-        return(
+    
+    return(
             
             <Container maxWidth="sm">
             <Formik
@@ -99,7 +95,7 @@ export default class CreateDepartmentView extends Component{
             }) => (
                 
                 <>
-                {this.options()}
+                {options()}
             <Box
                 display="flex"
                 flexDirection="column"
@@ -107,8 +103,7 @@ export default class CreateDepartmentView extends Component{
                 justifyContent="center"
             >
                 
-                {console.log(this.props.opciones)}
-                <form  onSubmit={this.handleSubmit}>
+                <form  onSubmit={handleSubmit}>
                     <Box mb={3}>
                         <TextField
                         error={Boolean(touched.name && errors.name)}
@@ -117,9 +112,8 @@ export default class CreateDepartmentView extends Component{
                         label="Nombre"
                         margin="normal"
                         name="name"
-                        inputRef={this.name}
+                        onChange = {handleOnchangeName}                       
                         onBlur={handleBlur}
-                        onChange={handleChange}
                         type="text"
                         value={values.name}
                         variant="outlined"
@@ -182,5 +176,7 @@ export default class CreateDepartmentView extends Component{
             
         
     )
-    }
+    
 }
+
+export default CreateDepartmentView;

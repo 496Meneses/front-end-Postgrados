@@ -37,7 +37,7 @@ const CreateCountryView = () =>{
         event.preventDefault();
         handleCreate();
     }
-    const handleOnchageName = (e) => {
+    const handleOnchangeName = (e) => {
         setname(e.target.value)
     }
     return(
@@ -82,9 +82,8 @@ const CreateCountryView = () =>{
                         label="Nombre"
                         margin="normal"
                         name="name"
-                        onChange = {handleOnchageName}
+                        onChange = {handleOnchangeName}
                         onBlur={handleBlur}
-                        onChange={handleChange}
                         type="text"
                         value={values.name}
                         variant="outlined"
