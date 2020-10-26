@@ -1,4 +1,4 @@
-import React,{Component} from 'react';
+import React,{useState} from 'react';
 import CreatePlacesService from './service';
 import * as Yup from 'yup';
 import { Formik } from 'formik';

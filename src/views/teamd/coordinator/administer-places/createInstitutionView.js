@@ -1,4 +1,4 @@
-import React,{Component} from 'react';
+import React,{useState} from 'react';
 import CreatePlacesService from './service';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
@@ -28,7 +28,7 @@ const CreateInstitutionView =()=>{
         setcity(e.target.value);
     }
 
-    const handleOnchangeDepartment =()=>{
+    const handleOnchangeDepartment =(e)=>{
         setdepartment(e.target.value);
     }
 
