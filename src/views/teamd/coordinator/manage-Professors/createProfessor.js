@@ -14,43 +14,45 @@ import {
   } from '@material-ui/core';
 const createProfessor=new CreateProfessor();
 
-export default class CreateProfessorView extends Component{
-
-    handleChange = (event) => {
-        this.setAge(event.target.value);
-      };
-    
-      handleClose = () => {
-        this.setOpen(false);
-      };
-    
-        handleOpen = () => {
-        this.setOpen(true);
-      };
+const CreateProfessorView = () => {
 
 
+    const [name, setname] = useState("")
+    const [identification, setidentification] = useState()
+    const [lastName, setlastName] = useState("")
+    const [isInternal, setisInternal] = useState("")
+    const [age, setage] = useState("")
 
-    constructor(props){
-        super(props);
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.name = React.createRef();
-        this.identification = React.createRef();
-        this.lastName = React.createRef();
-        this.isInternal = React.createRef();
+    //obtener inputs 
+    const handleChangeIdentification = (e) =>{
+        setidentification(e.target.value);
     }
+    const handleChangeName = (e) =>{
+        setname(e.target.value);
+    }
+    const handleChangeLastName = (e) =>{
+        setlastName(e.target.value);
+    }
+    const handleChangeIsInternal = (e) =>{
+        let selecteds = document.getElementById("selectedIsInternal");
+        setisInternal(selecteds.options[selecteds.selectedIndex].text);
 
-    handleCreate(){
-        if(this.isInternal.current.value === "Si"){
-            this.isInternal = 1
+    }
+    
+
+    const handleCreate = () =>{
+
+        if(isInternal === "Si"){
+            setisInternal(1)
         }else{
-            this.isInternal = 0
+            setisInternal(0)
         }
         createProfessor.create({
 
-            "cedula": this.identification.current.value,
-            "nombre": this.name.current.value,
-            "apellido": this.lastName.current.value,
-            "es_interno": this.isInternal
+            "cedula": identification,
+            "nombre": name,
+            "apellido": lastName,
+            "es_interno": isInternal
 
             
         }).then((result)=>{
@@ -63,13 +65,11 @@ export default class CreateProfessorView extends Component{
         });
            
     }
-    handleSubmit(event){
-        this.handleCreate();
+    const handleSubmit = (event) =>{
+        handleCreate();
         event.preventDefault();
     }
-
-
-    render(){return(
+    return(
         
         <Container maxWidth="sm">
         
@@ -113,7 +113,7 @@ export default class CreateProfessorView extends Component{
                 height="100%"
                 justifyContent="center"
             >
-                <form  onSubmit={this.handleSubmit}>
+                <form  onSubmit={handleSubmit}>
                     <Box mb={3}>
                         <TextField
                         error={Boolean(touched.identification && errors.identification)}
@@ -122,9 +122,8 @@ export default class CreateProfessorView extends Component{
                         label="Cedula"
                         margin="normal"
                         name="identification"
-                        inputRef={this.identification}
                         onBlur={handleBlur}
-                        onChange={handleChange}
+                        onChange={handleChangeIdentification}
                         type="text"
                         value={values.identification}
                         variant="outlined"
@@ -136,9 +135,8 @@ export default class CreateProfessorView extends Component{
                         label="Nombre"
                         margin="normal"
                         name="name"
-                        inputRef={this.name}
                         onBlur={handleBlur}
-                        onChange={handleChange}
+                        onChange={handleChangeName}
                         type="text"
                         value={values.name}
                         variant="outlined"
@@ -150,9 +148,8 @@ export default class CreateProfessorView extends Component{
                         label="Apellidos"
                         margin="normal"
                         name="lastName"
-                        inputRef={this.lastName}
                         onBlur={handleBlur}
-                        onChange={handleChange}
+                        onChange={handleChangeLastName}
                         type="text"
                         value={values.lastName}
                         variant="outlined"
@@ -164,7 +161,7 @@ export default class CreateProfessorView extends Component{
                                 >
                                     ¿Es interno?
                         </Typography>
-                        <select style={{marginTop: '0px' , width: '50px', height: '25px', marginLeft:'15px'}}  ref={this.isInternal}id="cars">
+                        <select style={{marginTop: '0px' , width: '50px', height: '25px', marginLeft:'15px'}} id="selectedIsInternal" onChange={handleChangeIsInternal}>
                             <option value="Si">Si</option>
                             <option value="No">No</option>
                         </select>  
@@ -195,5 +192,6 @@ export default class CreateProfessorView extends Component{
         </Formik>
         
         </Container>
-    )}
+    )
 }
+export default CreateProfessorView;

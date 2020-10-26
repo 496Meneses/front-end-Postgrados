@@ -1,4 +1,4 @@
-import React,{Component} from 'react';
+import React,{Component, useState} from 'react';
 import CreateGI from './service';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
@@ -11,20 +11,16 @@ import {
     
   } from '@material-ui/core';
 const crearGI = new CreateGI();
-export default class AddLineResearchView extends Component{
+const AddLineResearchView = () => {
 
-    constructor(props){
-        super(props);
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.title = React.createRef();
-        this.description = React.createRef();
-        this.KnowLedge = React.createRef();
-    }
-    handleCreate(){
+    const [title, setTitle] = useState("")
+    const [description, setDescription] = useState("")
+    const [knowLedge, setKnowLedge] = useState("")
+    const handleCreate = () => {
         crearGI.AddLineRearchService({
-            "nombre": this.title.current.value,
-            "descripcion": this.description.current.value,
-            "area_con" : this.KnowLedge.current.value,
+            "nombre": title,
+            "descripcion": description,
+            "area_con" : KnowLedge,
             
         }).then((result)=>{
             alert ("Linea de investigacion agregada!");
@@ -33,8 +29,8 @@ export default class AddLineResearchView extends Component{
         });
            
     }
-    handleSubmit(event){
-        this.handleCreate();
+    const handleSubmit = (event) =>{
+        handleCreate();
         event.preventDefault();
     }
 

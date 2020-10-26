@@ -1,4 +1,4 @@
-import React,{Component} from 'react';
+import React,{useState} from 'react';
 import CreateGI from './service';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
@@ -12,21 +12,21 @@ import {
   } from '@material-ui/core';
 
 const createGI = new CreateGI();
-export default class AddKnowLedgeView extends Component{
+const AddKnowLedgeView = () =>{
 
-    constructor(props){
-        super(props);
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.title = React.createRef();
-        this.description = React.createRef();
-        //this.startDate = React.createRef();
-        //this.endDate= React.createRef();
-        //this.state = React.createRef();
+
+    const [title, setTitle] = useState("")
+    const [description, setdescription] = useState("")
+    const handleChangeTitle  = (e)=>{
+        setTitle(e.target.value)
     }
-    handleCreate(){
+    const handleChangeDescription = (e) =>{
+        setdescription(e.target.value);
+    }
+    const handleCreate = () =>{
         createGI.AddKnowLedgeService({
-            "nombre": this.title.current.value,
-            "descripcion": this.description.current.value
+            "nombre": title,
+            "descripcion": description
             //"fechainicio": this.startDate.current.value,
             //"fechafin": this.endDate.current.value,
             //"estado": this.state.current.value,
@@ -38,12 +38,10 @@ export default class AddKnowLedgeView extends Component{
         });
            
     }
-    handleSubmit(event){
-        this.handleCreate();
+    const handleSubmit = (event) =>{
+        handleCreate();
         event.preventDefault();
     }
-
-    render(){
         return(
             <Container maxWidth="sm">
             <Formik
@@ -72,7 +70,6 @@ export default class AddKnowLedgeView extends Component{
               errors,
               handleBlur,
               handleChange,
-              isSubmitting,
               touched,
               values
             }) => (
@@ -82,7 +79,7 @@ export default class AddKnowLedgeView extends Component{
                 height="100%"
                 justifyContent="center"
             >
-                <form  onSubmit={this.handleSubmit}>
+                <form  onSubmit={handleSubmit}>
                     <Box mb={3}>
                     <TextField
                         error={Boolean(touched.title && errors.title)}
@@ -91,9 +88,8 @@ export default class AddKnowLedgeView extends Component{
                         label="Title"
                         margin="normal"
                         name="title"
-                        inputRef={this.title}
                         onBlur={handleBlur}
-                        onChange={handleChange}
+                        onChange={handleChangeTitle}
                         type="text"
                         value={values.title}
                         variant="outlined"
@@ -105,9 +101,8 @@ export default class AddKnowLedgeView extends Component{
                         label="Descripcion"
                         margin="normal"
                         name="description"
-                        inputRef={this.description}
                         onBlur={handleBlur}
-                        onChange={handleChange}
+                        onChange={handleChangeDescription}
                         type="text"
                         value={values.description}
                         variant="outlined"
@@ -164,5 +159,6 @@ export default class AddKnowLedgeView extends Component{
             </Container>
         
     )
-    }
+    
 }
+export default AddKnowLedgeView;
