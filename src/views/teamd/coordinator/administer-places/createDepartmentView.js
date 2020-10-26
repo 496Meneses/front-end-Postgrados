@@ -12,11 +12,8 @@ import {
 
     
   } from '@material-ui/core';
-import Autocomplete from '@material-ui/lab/Autocomplete';
-import { result } from 'lodash';
 const createDepartment = new CreatePlacesService();
 const list = new CreatePlacesService();
-const opciones= [];
 export default class CreateDepartmentView extends Component{
 
     constructor(props){

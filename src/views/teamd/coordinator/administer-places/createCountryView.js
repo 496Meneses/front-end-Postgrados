@@ -1,4 +1,4 @@
-import React,{Component} from 'react';
+import React,{Component, useState} from 'react';
 import CreatePlacesService from './service';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
@@ -14,16 +14,14 @@ import {
   } from '@material-ui/core';
 
 const createCountry = new CreatePlacesService();
-export default class CreateCountryView extends Component{
+const CreateCountryView = () =>{
 
-    constructor(props){
-        super(props);
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.nombre = React.createRef();
-    }
-    handleCreate(){
+
+    const [name, setname] = useState(" ")
+
+    const handleCreate = () =>{
         createCountry.CreateCountry({
-            "nombre": this.nombre.current.value,
+            "nombre": name
     
         }).then((result)=>{
 
@@ -35,14 +33,14 @@ export default class CreateCountryView extends Component{
         });
            
     }
-    handleSubmit(event){
+    const handleSubmit = (event) => {
         event.preventDefault();
-        this.handleCreate();
+        handleCreate();
     }
-
-    render(){
-        return(
-           
+    const handleOnchageName = (e) => {
+        setname(e.target.value)
+    }
+    return(
             <Container maxWidth="sm">
             <Formik
                 initialValues={{
@@ -50,7 +48,7 @@ export default class CreateCountryView extends Component{
 
                     }}
                     validationSchema={
-                        Yup.object().shape({
+                          Yup.object().shape({
                           name: Yup.string().max(255).required('name is required'),
 
                         })
@@ -75,7 +73,7 @@ export default class CreateCountryView extends Component{
                 height="100%"
                 justifyContent="center"
             >
-                <form  onSubmit={this.handleSubmit}>
+                <form  onSubmit={handleSubmit}>
                     <Box mb={3}>
                         <TextField
                         error={Boolean(touched.name && errors.name)}
@@ -84,7 +82,7 @@ export default class CreateCountryView extends Component{
                         label="Nombre"
                         margin="normal"
                         name="name"
-                        inputRef={this.nombre}
+                        onChange = {handleOnchageName}
                         onBlur={handleBlur}
                         onChange={handleChange}
                         type="text"
@@ -120,5 +118,6 @@ export default class CreateCountryView extends Component{
             
         
     )
-    }
 }
+
+export default CreateCountryView; 

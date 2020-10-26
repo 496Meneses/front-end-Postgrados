@@ -59,12 +59,6 @@ const CreateView = () => {
     handleCreate();
     event.preventDefault();
   }
-
-
-
-
-
-
   return (
       <Container maxWidth="lg">
         <Formik
