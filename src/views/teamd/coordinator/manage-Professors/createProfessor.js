@@ -3,6 +3,7 @@ import { Formik } from 'formik';
 import * as Yup from 'yup';
 import {CreateProfessorApi} from './service'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import './hidden.css'
 import {
     Box,
     Button,
@@ -17,8 +18,9 @@ const CreateProfessorView = () => {
     const [name, setname] = useState("")
     const [identification, setidentification] = useState()
     const [lastName, setlastName] = useState("")
-    const [isInternal, setisInternal] = useState("")
+    const [isInternal, setisInternal] = useState("Si")
     const [age, setage] = useState("")
+    const [departmentI, setdepartmentI] = useState("")
 
     //obtener inputs 
     const handleChangeIdentification = (e) =>{
@@ -30,9 +32,23 @@ const CreateProfessorView = () => {
     const handleChangeLastName = (e) =>{
         setlastName(e.target.value);
     }
+    const handleChangeDepartmentI = (e) =>{
+        setdepartmentI(e.target.value)
+    }
     const handleChangeIsInternal = (e) =>{
         let selecteds = document.getElementById("selectedIsInternal");
+        
+
+
         setisInternal(selecteds.options[selecteds.selectedIndex].text);
+        console.log(isInternal);
+        if (selecteds.options[selecteds.selectedIndex].text  === "No"){
+            setisInternal(false);
+
+        }
+        else{
+            setisInternal(true);
+        }
 
     }
     
@@ -87,7 +103,9 @@ const CreateProfessorView = () => {
                 Yup.object().shape({
                   identification: Yup.string().max(255).required('Identification is required'),
                   name: Yup.string().max(255).required('Name is required'),
-                  lastName: Yup.string().max(255).required('LastName is required')
+                  lastName: Yup.string().max(255).required('LastName is required'),
+                  departmentI: Yup.string().max(255).required('Department is required'),
+                  institution: Yup.string().max(255).required('Institutio is required')
                 })
               }
               onSubmit={() => {
@@ -164,6 +182,40 @@ const CreateProfessorView = () => {
                         </select>  
                         </div>
 
+                        <span>
+                        {isInternal ? (
+                            <div /* Este es el div 1 */ className="redd" >
+                                                        <TextField
+                                                    error={Boolean(touched.departmentI && errors.departmentI)}
+                                                    fullWidth
+                                                    helperText={touched.departmentI && errors.departmentI}
+                                                    label="Departamento de la institucion en la que trabaja"
+                                                    margin="normal"
+                                                    name="departmentI"
+                                                    onBlur={handleBlur}
+                                                    
+                                                    type="text"
+                                                    value={values.departmentI}
+                                                    variant="outlined"
+                                                    />
+                            </div>
+                        ) : (
+                            <div /* Este es el div 2 */ className="red2" >                        <TextField
+                                                        error={Boolean(touched.institution && errors.institution)}
+                                                        fullWidth
+                                                        helperText={touched.institution && errors.institution}
+                                                        label="Institucion a la que pertenece"
+                                                        margin="normal"
+                                                        name="institution"
+                                                        onBlur={handleBlur}
+                                                        
+                                                        type="text"
+                                                        value={values.institution}
+                                                        variant="outlined"
+                                                        /></div>
+                        )}
+                        </span>
+
                         
 
                         <Box my={2}>
@@ -181,9 +233,6 @@ const CreateProfessorView = () => {
                     </Box>   
                 </form>
             </Box>
-            <div id="contenedorProfesor">
-
-            </div>
             </>)}
         
         </Formik>

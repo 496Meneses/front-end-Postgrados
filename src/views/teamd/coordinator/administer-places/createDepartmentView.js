@@ -1,5 +1,5 @@
 import React,{Component, useState} from 'react';
-import CreatePlacesService from './service';
+import {CreateDeparment , listCountries} from './service';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -10,8 +10,7 @@ import {
     TextField,
     Typography,    
   } from '@material-ui/core';
-const createDepartment = new CreatePlacesService();
-const list = new CreatePlacesService();
+
 const CreateDepartmentView = () =>{
 
     const [name, setname] = useState(" ")
@@ -21,7 +20,7 @@ const CreateDepartmentView = () =>{
     }
 
     const options = ()=>{
-        list.listCountries({
+        listCountries({
             
         }).then(async (result)=>{
             document.getElementById("opcionesD").innerHTML=" ";
@@ -33,18 +32,15 @@ const CreateDepartmentView = () =>{
                 option.appendChild(textOption)
                 document.getElementById("opcionesD").appendChild(option);
             })
-            
-
-            
-            
+   
         }).catch(()=>{
             
         });
 
-        }
+    }
     const handleCreate= () =>{
         let select = document.getElementById('opcionesD').value;
-        createDepartment.CreateDeparment({
+        CreateDeparment({
             "nombre": name,
             "pais": select,
             
@@ -147,7 +143,6 @@ const CreateDepartmentView = () =>{
                                     Seleccionar el pais
                         </Typography>
                         <select className="browser-default custom-select mt-2" id="opcionesD">
-                        
 
                         </select>
 

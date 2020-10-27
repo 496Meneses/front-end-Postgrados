@@ -1,5 +1,5 @@
 import React,{Component, useState} from 'react';
-import CreatePlacesService from './service';
+import {CreateCountry} from './service';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 import { Link as  useNavigate } from 'react-router-dom';
@@ -13,14 +13,13 @@ import {
     
   } from '@material-ui/core';
 
-const createCountry = new CreatePlacesService();
 const CreateCountryView = () =>{
 
 
     const [name, setname] = useState(" ")
 
     const handleCreate = () =>{
-        createCountry.CreateCountry({
+        CreateCountry({
             "nombre": name
     
         }).then((result)=>{

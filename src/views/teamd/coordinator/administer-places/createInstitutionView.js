@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import CreatePlacesService from './service';
+import {CreateInstitution} from './service';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -13,7 +13,6 @@ import {
     
   } from '@material-ui/core';
 
-const createInstitution = new CreatePlacesService();
 const CreateInstitutionView =()=>{
     const [name, setname] = useState(" ")
     const [city,setcity]= useState(" ")
@@ -37,7 +36,7 @@ const CreateInstitutionView =()=>{
     }
 
     const handleCreate = ()=>{
-        createInstitution.CreateInstitution({
+        CreateInstitution({
             "nombre_ins": name,
             "ciudad": city,
             "departamento": department,

@@ -1,5 +1,5 @@
 import React,{useState} from 'react';
-import CreatePlacesService from './service';
+import {listCountries,listDeparments,CreateCity} from './service';
 import * as Yup from 'yup';
 import { Formik } from 'formik';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -13,8 +13,6 @@ import {
     
   } from '@material-ui/core';
 
-const createCity = new CreatePlacesService();
-const list = new CreatePlacesService();
 const CreateCityView = () =>{
     const [name, setname] = useState(" ")
     const [department,setdepartment]= useState(" ")
@@ -28,7 +26,7 @@ const CreateCityView = () =>{
     }
 
     const options = ()=>{
-        list.listCountries({
+        listCountries({
             
         }).then(async (result)=>{
             document.getElementById("opcionesCountries").innerHTML=" ";
@@ -47,7 +45,7 @@ const CreateCityView = () =>{
             
         });
 
-        list.listDeparments("1").then(async (result)=>{
+        listDeparments("1").then(async (result)=>{
             document.getElementById("opcionesDeparments").innerHTML=" ";
             result.data.Paises.forEach(elemento => {
                 
@@ -70,7 +68,7 @@ const CreateCityView = () =>{
         }
     const handleCreate= () =>{
         let selectCountry = document.getElementById('opcionesCountries').value;
-        createCity.CreateCity({
+        CreateCity({
             "nombre": name,
             "departamento": department,
             "pais": selectCountry,
